@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>维吉尼亚密码 | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="维吉尼亚密码属于古典密码中的一种多表密码，是在单一恺撒密码的基础上扩展出多表密码，以其简单易用而著称，同时初学者通常难以破解，因而又曾被称为“不可破译的密码”。我这里利用javascript实现了维吉尼亚密码的加密和解密过程，并且运用频率统计，重合指数法在仅有密文而不知道密钥的情况下实现密码破解。
+">
+  
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="维吉尼亚密码"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div id="page" class="site">
+  <div id="primary" class="content-area">
+
+    <header id="header" class="inner"><div class="site-branding">
+  <h1 class="site-title">
+    <a href="/">Hexo</a>
+  </h1>
+  <p class="site-description"></p>
+</div>
+<nav id="site-navigation" class="main-navigation" role="navigation">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+
+    <main id="main" class="site-main posts-loop" role="main">
+      <article class="post article">
+
+  
+  
+    <h3 class="article-title"><span>维吉尼亚密码</span></h3>
+  
+
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016-06-13-Article003.html" rel="bookmark">
+        <time class="entry-date published" datetime="2016-06-12T18:18:06.000Z">
+          2016-06-13
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>维吉尼亚密码属于古典密码中的一种多表密码，是在单一恺撒密码的基础上扩展出多表密码，以其简单易用而著称，同时初学者通常难以破解，因而又曾被称为“不可破译的密码”。我这里利用javascript实现了维吉尼亚密码的加密和解密过程，并且运用频率统计，重合指数法在仅有密文而不知道密钥的情况下实现密码破解。</p>
+<p>网站地址：<a href="http://atomcated.github.io/Vigenere/" target="_blank" rel="external">Vigenere</a></p>
+<h3 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h3><p>多表密码最早在1467年左右由莱昂·巴蒂斯塔·阿尔伯蒂提出，他使用了一个金属密码盘来切换密码表，只是这个系统只能做些有限的转换。后来1508年时，约翰尼斯·特里特米乌斯《隐写术》（Steganographia）中发明的<strong>表格法</strong>（tabula recta）成为了维吉尼亚密码的关键部分。然而当时此方法只能对密码表做一些简单的、可预测的切换。这一加密技术也称为特里特米乌斯密码。</p>
+<p>这一方法真正出现是在吉奥万·巴蒂斯塔·贝拉索于1553年所著的书《吉奥万·巴蒂斯塔·贝拉索先生的算术》中。他以特里特米乌斯的表格法为基础，同时引入了<strong>密钥</strong>的概念。</p>
+<p>布莱斯·德·维吉尼亚于1586年亨利三世时期发明了更为简单却又更有效的自动密钥密码（autokey cipher）。之后，19世纪时贝拉索的方法被误认为是由维吉尼亚首先发明的。大卫·卡恩在《破译者（The Codebreakers）》中对此表示遗憾，他写道“历史忽略了这一重要贡献，将其归功于维吉尼亚，虽然他对此并不知道”。</p>
+<p>由于破译的难度很高，维吉尼亚密码也因此获得了很高的声望。知名作家、数学家查尔斯·路特维奇·道奇森（笔名路易斯·卡罗）在其1868年所编、收于一儿童杂志的《字母表密码（The Alphabet Cipher）》中称其是不可破译的。1917年，《科学美国人》将维吉尼亚密码称为“无法被转化的”。然而，维吉尼亚密码却配不上这样的称号。查尔斯·巴贝奇完成了破译的工作，但他没有将此发表。之后，弗里德里希·卡西斯基（Friedrich Kasiski）于19世纪完全破解并发表了他的方法。甚至在此之前，一些资深密码分析家在16世纪就能偶尔将其破解。</p>
+<h3 id="保密系统模型"><a href="#保密系统模型" class="headerlink" title="保密系统模型"></a>保密系统模型</h3><p><img src="/img/pic-003-1.jpg" alt=""></p>
+<p>一个密码系统通常有五部分组成：</p>
+<ol>
+<li>明文（Plaintext）</li>
+<li>密文(Ciphertext)</li>
+<li>加密（Encrypt ）</li>
+<li>解密（Decrypt）</li>
+<li>密钥（Key ）</li>
+</ol>
+<p>柯克霍夫斯（Kerckhoffs）原则：</p>
+<blockquote>
+<p>即使密码系统中的算法为密码分析者所知，也难以从截获的密文推导出明文或密钥。也就是说，密码体制的安全性仅应依赖于对密钥的保密，而不应依赖于对算法的保密。只有在假设攻击者对密码算法有充分的研究，并且拥有足够的计算资源的情况下仍然安全的密码才是安全的密码系统。一句话： “一切秘密寓于密钥之中”.</p>
+</blockquote>
+<p>###密码描述</p>
+<p>在一个恺撒密码中，字母表中的每一字母都会作一定的偏移，例如偏移量为3时，A就转换为了D、B转换为了E……。而维吉尼亚密码则是由一些偏移量不同的恺撒密码组成。</p>
+<p>设明文（Plaintext）</p>
+<pre><code>P = p1p2...pn
+</code></pre><p>密钥（Key ）</p>
+<pre><code>K = k1k2...kn  //当密钥长度小于明文，密钥周期使用
+</code></pre><p>例如，假设明文为：ATTACKATDAWN</p>
+<p>选择某一关键词并重复而得到密钥，如关键词为LEMON时，密钥为：LEMONLEMONLE</p>
+<p>可以得到：</p>
+<pre><code>明文：ATTACKATDAWN
+密钥：LEMONLEMONLE
+密文：LXFOPVEFRNHR
+
+加密公式：Ci = ( Pi + Ki ) mod 26
+解密公式：Pi = ( Ci - Ki ) mod 26
+</code></pre><p>###密码破译</p>
+<p>这里简单表述在不知道密钥时的破解过程，具体实现在js源码中.</p>
+<p>在多表古典密码分析中，首先要确定密钥的长度，也就是要首先确定所使用的加密表的个数，然后在分析确定具体的密钥。</p>
+<ol>
+<li>确定密钥长度。常用方法有<strong>Kasiski测试法</strong>和<strong>重合指数法</strong>。</li>
+</ol>
+<p>重合指数Ic是William F. Friedman于1920年发明的<br><img src="/img/pic-003-2.jpg" alt=""><br>英文字母A,B,C,…Z的期望概率可以从统计数据中知道，于是我们有</p>
+<pre><code>Ic(x) ≈ ∑ pi^2  = 0.065
+</code></pre><p>而对于随机的英文字母</p>
+<pre><code>Ic ≈ 26 * （1/26)^2  = 0.038
+</code></pre><p>0.065和0.038相差较远，所以我们可以确定密钥长度。将密文写成矩阵形式，其中列数与假定的密钥长度一致，将每一列的重合指数单独计算，并求得平均重合指数。对于所有可能的密钥长度，平均重合指数最高的最有可能是真正的密钥长度。</p>
+<ol>
+<li>确定key</li>
+</ol>
+<p></p><p>英语中的字母频率如下：</p><p></p>
+<table><br><tr><br><th>字母</th><br><th colspan="2">英语中出现的频率</th><br></tr><br><tr><br><td style="text-align:center;"><b>a</b></td><br><td align="right">8.167%</td><br><td align="left"><span style="display:none;">8.167</span><br><div style="width:163.34px;height:2ex;background:#aaa;background:blue">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>b</b></td><br><td align="right">1.492%</td><br><td align="left"><span style="display:none;">1.492</span><br><div style="width:29.84px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>c</b></td><br><td align="right">2.782%</td><br><td align="left"><span style="display:none;">2.782</span><br><div style="width:55.64px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>d</b></td><br><td align="right">4.253%</td><br><td align="left"><span style="display:none;">4.253</span><br><div style="width:85.06px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>e</b></td><br><td align="right">12.702%</td><br><td align="left"><span style="display:none;">12.702</span><br><div style="width:254.04px;height:2ex;background:#aaa;background:blue">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>f</b></td><br><td align="right">2.228%</td><br><td align="left"><span style="display:none;">2.228</span><br><div style="width:44.56px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>g</b></td><br><td align="right">2.015%</td><br><td align="left"><span style="display:none;">2.015</span><br><div style="width:40.3px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>h</b></td><br><td align="right">6.094%</td><br><td align="left"><span style="display:none;">6.094</span><br><div style="width:121.88px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>i</b></td><br><td align="right">6.966%</td><br><td align="left"><span style="display:none;">6.966</span><br><div style="width:139.32px;height:2ex;background:#aaa;background:blue">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>j</b></td><br><td align="right">0.153%</td><br><td align="left"><span style="display:none;">0.153</span><br><div style="width:3.06px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>k</b></td><br><td align="right">0.772%</td><br><td align="left"><span style="display:none;">0.772</span><br><div style="width:15.44px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>l</b></td><br><td align="right">4.025%</td><br><td align="left"><span style="display:none;">4.025</span><br><div style="width:80.5px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>m</b></td><br><td align="right">2.406%</td><br><td align="left"><span style="display:none;">2.406</span><br><div style="width:48.12px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>n</b></td><br><td align="right">6.749%</td><br><td align="left"><span style="display:none;">6.749</span><br><div style="width:134.98px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>o</b></td><br><td align="right">7.507%</td><br><td align="left"><span style="display:none;">7.507</span><br><div style="width:150.14px;height:2ex;background:#aaa;background:blue">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>p</b></td><br><td align="right">1.929%</td><br><td align="left"><span style="display:none;">1.929</span><br><div style="width:38.58px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>q</b></td><br><td align="right">0.095%</td><br><td align="left"><span style="display:none;">0.095</span><br><div style="width:1.9px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>r</b></td><br><td align="right">5.987%</td><br><td align="left"><span style="display:none;">5.987</span><br><div style="width:119.74px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>s</b></td><br><td align="right">6.327%</td><br><td align="left"><span style="display:none;">6.327</span><br><div style="width:126.54px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>t</b></td><br><td align="right">9.056%</td><br><td align="left"><span style="display:none;">9.056</span><br><div style="width:181.12px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>u</b></td><br><td align="right">2.758%</td><br><td align="left"><span style="display:none;">2.758</span><br><div style="width:55.16px;height:2ex;background:#aaa;background:blue">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>v</b></td><br><td align="right">0.978%</td><br><td align="left"><span style="display:none;">0.978</span><br><div style="width:19.56px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>w</b></td><br><td align="right">2.360%</td><br><td align="left"><span style="display:none;">2.36</span><br><div style="width:47.2px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>x</b></td><br><td align="right">0.150%</td><br><td align="left"><span style="display:none;">0.15</span><br><div style="width:3px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>y</b></td><br><td align="right">1.974%</td><br><td align="left"><span style="display:none;">1.974</span><br><div style="width:39.48px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br><tr><br><td style="text-align:center;"><b>z</b></td><br><td align="right">0.074%</td><br><td align="left"><span style="display:none;">0.074</span><br><div style="width:1.48px;height:2ex;background:#aaa;">&#160;</div><br></td><br></tr><br></table>
+
+<p><strong>对通过同一个key加密的等间隔的密文进行字母分布统计，key应该是能与上图形成最匹配的相对位移，穷举26个可能的密钥，很容易得到key各个位的值</strong></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher" target="_blank" rel="external">https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher</a></p>
+<p><a href="http://smurfoncrack.com/pygenere/" target="_blank" rel="external">http://smurfoncrack.com/pygenere/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+        <div class="article-meta pull-left">
+          
+          
+        </div>
+        
+    </footer>
+  </div>
+</article>
+
+  
+
+
+
+    </main>
+
+    <footer id="colophon" class="site-footer" role="contentinfo"><p class="site-info">
+  Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+  Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+  </br>
+  
+  &copy; 2016 John Doe
+  
+</p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

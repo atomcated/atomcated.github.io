@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Markdown 语法指南 | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="jekyll用 Markdown (或 Textile)、Liquid、HTML &amp;amp; CSS 就可以构建可部署的静态网站。
+下面记录一些常用的语法：
+git用法
+git add .
+git commit -m &amp;quot;Initial commit&amp;quot;
+git push -u or">
+  
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Markdown 语法指南"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div id="page" class="site">
+  <div id="primary" class="content-area">
+
+    <header id="header" class="inner"><div class="site-branding">
+  <h1 class="site-title">
+    <a href="/">Hexo</a>
+  </h1>
+  <p class="site-description"></p>
+</div>
+<nav id="site-navigation" class="main-navigation" role="navigation">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+
+    <main id="main" class="site-main posts-loop" role="main">
+      <article class="post article">
+
+  
+  
+    <h3 class="article-title"><span>Markdown 语法指南</span></h3>
+  
+
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016-06-11-Article001.html" rel="bookmark">
+        <time class="entry-date published" datetime="2016-06-10T18:18:06.000Z">
+          2016-06-11
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>jekyll用 Markdown (或 Textile)、Liquid、HTML &amp; CSS 就可以构建可部署的静态网站。</p>
+<p>下面记录一些常用的语法：</p>
+<p>git用法</p>
+<pre><code>git add .
+git commit -m &quot;Initial commit&quot;
+git push -u origin master
+
+git add .&amp;&amp;git commit -m &quot;Initial commit&quot;&amp;&amp;git push -u origin master
+</code></pre><h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><p>文章内容较多时，可以用标题分段：</p>
+<pre><code>标题1
+======
+标题2
+-----
+## 大标题 ##
+### 小标题 ###
+</code></pre><h3 id="粗斜体"><a href="#粗斜体" class="headerlink" title="粗斜体"></a>粗斜体</h3><pre><code>*斜体文本*    _斜体文本_
+**粗体文本**    __粗体文本__
+***粗斜体文本***    ___粗斜体文本___
+</code></pre><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><pre><code>文字链接 [百度](https://www.baidu.com)
+网址链接 &lt;https://www.baidu.com&gt;
+</code></pre><h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p>跟链接的方法区别在于前面加了个感叹号 !</p>
+<pre><code>![图片名称](http://图片网址)
+</code></pre><p>也可以使用 HTML 的图片语法来自定义图片的宽高大小</p>
+<pre><code>&lt;img src=&quot;htt://example.com/sample.png&quot; width=&quot;400&quot; height=&quot;100&quot;&gt;
+</code></pre><h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><pre><code>Markdown 会用 &lt;pre&gt; 和 &lt;code&gt; 标签来把代码区块包起来。
+要在 Markdown 中建立代码区块很简单，只要简单地缩进 4 个空格或是 1 个制表符就可以
+</code></pre><h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>普通无序列表</p>
+<pre><code>- 列表文本前使用 [减号+空格]
++ 列表文本前使用 [加号+空格]
+* 列表文本前使用 [星号+空格]
+</code></pre><p>普通有序列表</p>
+<pre><code>1. 列表前使用 [数字+空格]
+2. 我们会自动帮你添加数字
+7. 不用担心数字不对，显示的时候我们会自动把这行的 7 纠正为 3
+</code></pre><p>列表嵌套</p>
+<pre><code>1. 列出所有元素：
+    - 无序列表元素 A
+        1. 元素 A 的有序子列表
+    - 前面加四个空格
+2. 列表里的多段换行：
+    前面必须加四个空格，
+    这样换行，整体的格式不会乱
+3. 列表里引用：
+
+    &gt; 前面空一行
+    &gt; 仍然需要在 &gt;  前面加四个空格
+
+4. 列表里代码段：
+
+    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">前面四个空格，之后按代码语法 ``` 书写</span><br></pre></td></tr></table></figure>
+
+        或者直接空八个，引入代码块
+</code></pre><h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>普通引用</p>
+<pre><code>&gt; 引用文本前使用 [大于号+空格]
+&gt; 折行可以不加，新起一行都要加上哦
+</code></pre><p>引用里嵌套引用</p>
+<pre><code>&gt; 最外层引用
+&gt; &gt; 多一个 &gt; 嵌套一层引用
+&gt; &gt; &gt; 可以嵌套很多层
+</code></pre><p>引用里嵌套列表</p>
+<pre><code>&gt; - 这是引用里嵌套的一个列表
+&gt; - 还可以有子列表
+&gt;     * 子列表需要从 - 之后延后四个空格开始
+</code></pre><p>引用里嵌套代码块</p>
+<pre><code>&gt;     同样的，在前面加四个空格形成代码块
+&gt;
+&gt; <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; 或者使用 ``` 形成代码块</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</code></pre><p>分隔符</p>
+<pre><code>---
+
+***
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+        <div class="article-meta pull-left">
+          
+          
+        </div>
+        
+    </footer>
+  </div>
+</article>
+
+  
+
+
+
+    </main>
+
+    <footer id="colophon" class="site-footer" role="contentinfo"><p class="site-info">
+  Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+  Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+  </br>
+  
+  &copy; 2016 John Doe
+  
+</p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

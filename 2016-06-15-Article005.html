@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CSS定位体系概述 | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="CSS盒模型(Box Model)规定了对元素内容，内边距，边框，外边距的处理方式，也就是盒子内部的规范。那盒模型出现的位置，就牵涉到CSS中的定位体系，这里做一个系统的介绍。理论性的东西较多
+三种定位方案CSS 2.1 中，会根据三种定位方案来摆放盒模型：
+
+常规流( Normal flow )。">
+  
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="CSS定位体系概述"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div id="page" class="site">
+  <div id="primary" class="content-area">
+
+    <header id="header" class="inner"><div class="site-branding">
+  <h1 class="site-title">
+    <a href="/">Hexo</a>
+  </h1>
+  <p class="site-description"></p>
+</div>
+<nav id="site-navigation" class="main-navigation" role="navigation">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+
+    <main id="main" class="site-main posts-loop" role="main">
+      <article class="post article">
+
+  
+  
+    <h3 class="article-title"><span>CSS定位体系概述</span></h3>
+  
+
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016-06-15-Article005.html" rel="bookmark">
+        <time class="entry-date published" datetime="2016-06-14T18:18:06.000Z">
+          2016-06-15
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>CSS盒模型(Box Model)规定了对元素内容，内边距，边框，外边距的处理方式，也就是盒子内部的规范。那盒模型出现的位置，就牵涉到CSS中的定位体系，这里做一个系统的介绍。理论性的东西较多</p>
+<h3 id="三种定位方案"><a href="#三种定位方案" class="headerlink" title="三种定位方案"></a>三种定位方案</h3><p>CSS 2.1 中，会根据三种定位方案来摆放盒模型：</p>
+<ol>
+<li>常规流( Normal flow )。在 CSS2.1中，常规流包括块框的块格式化， 行内框的行内格式化，块框或行内框的相对定位(relative)。</li>
+<li>浮动(Floats)。在浮动模型中，一个框( box )<strong>首先根据常规流布局</strong>，再将它<strong>从流中取出并尽可能地向左或向右偏移</strong>。内容可以沿浮动区的侧面排列。 因为它首先要根据常规布局后才偏移，所以效率较常规流低。</li>
+<li>绝对定位。在绝对定位模型中，一个框会从常规流中<strong>完全脱离</strong>出来（它对后续的兄弟没有影响），并相对其<strong>包含块</strong>来指定其位置。</li>
+</ol>
+<h3 id="正常排版Normal-flow"><a href="#正常排版Normal-flow" class="headerlink" title="正常排版Normal flow"></a>正常排版Normal flow</h3><p>框在正常排版中必然属于一个格式化上下文，要么是块格式化上下文，要么是行格式化上下文。</p>
+<p>Block在块格式化上下文中，框会从包含块的顶部开始，一个接一个地，垂直向下地摆放(独占一行)。</p>
+<p>Inline在行格式化上下文中，框会从包含块的顶部开始，一个接一个地水平摆放。</p>
+<p>相对定位 Relative positioning</p>
+<p>当一个框按照正常排版或浮动来摆放好之后，它就可能相对当时的位置再有所偏移，这被称作<strong>相对定位</strong>。</p>
+<h3 id="浮动-Floats"><a href="#浮动-Floats" class="headerlink" title="浮动 Floats"></a>浮动 Floats</h3><p>浮动的框可以向左或向右移动，直到它的外边缘碰到包含框或另一个浮动框的边框为止。由于浮动框不在文档的普通流中，所以文档的普通流中的块框表现得就像浮动框不存在一样。</p>
+<p>浮动常用来制作水平导航，或者实现多列布局。</p>
+<p>clearfix<br>但是，由于浮动特性，容器如果没有明确设定高度，会依照普通流内元素高度设置，这样就会导致脱离普通流的浮动元素溢出容器，影响其后元素布局。</p>
+<ol>
+<li>采用一个HTML标签，以及css的clear属性，来手工清理浮动</li>
+<li>采用伪类:after，动态建立一个块元素，设定 clear 属性，清理之前的浮动元素（推荐）</li>
+<li>采用CSS overflow 非 visible 值(overflow:auto/overflow:hidden)设定使父容器包含浮动元素（BFC）</li>
+<li>将父元素同样浮动，就可以包含浮动内容</li>
+<li>在 IE 6/7 的标准文档模式中设置 “width/height/zoom” 等样式来自动清理浮动（hasLayout ）</li>
+</ol>
+<p>写了这么多方法其实他们清除浮动的原理</p>
+<ol>
+<li>clear</li>
+<li>触发BFC或hasLayout</li>
+</ol>
+<h3 id="绝对定位-Absolute-positioning"><a href="#绝对定位-Absolute-positioning" class="headerlink" title="绝对定位 Absolute positioning"></a>绝对定位 Absolute positioning</h3><p>在绝对定位模型中，一个框基于它的包含块而显式地偏移。它完全从正常排版中脱离(对后继的兄弟没有影响)。</p>
+<p>包含块containing block<br>判定总流程图如下：</p>
+<p><img src="/img/pic-005-1.png" alt=""></p>
+<p>简单来说就是非static的祖先元素</p>
+<h3 id="影响框的生成和布局的三个属性——‘display’，’position’和’float’——间的相互关系如下"><a href="#影响框的生成和布局的三个属性——‘display’，’position’和’float’——间的相互关系如下" class="headerlink" title="影响框的生成和布局的三个属性——‘display’，’position’和’float’——间的相互关系如下:"></a>影响框的生成和布局的三个属性——‘display’，’position’和’float’——间的相互关系如下:</h3><ol>
+<li>如果’display’值为’none’，那么’position’和’float’无效，元素不生成框。</li>
+<li>否则，如果’position’值为’absolute’或者’fixed’，框绝对地定位’float’计算的值为’none’，并且 display根据下面的表格进行设定。框的位置由’top’, ‘right’, ‘bottom’和’left’属性和包含块决定。</li>
+<li>否则，如果’float’的值不是’none’，该框是浮动的，且’display’值根据下面的表格进行设定。</li>
+<li>否则，如果元素是根元素，’display’值根据下面的表格进行设定，除了其在CSS2.1里面没有定义是否指定值’list-item’对应计算值’block’或者’list-item’。</li>
+<li>否则，’display’ 的计算值为指定的值。</li>
+</ol>
+<p>流程图如下：</p>
+<p><img src="/img/pic-005-2.png" alt=""></p>
+<table class="table"><br>      <tbody><tr><br>        <th>设定值</th><br>        <th>计算值</th><br>      </tr><br>      <tr><br>        <td>inline-table </td><br>        <td>table</td><br>      </tr><br>      <tr><br>        <td>inline, run-in, table-row-group, table-column, table-column-group, table-header-group, <br><br>          table-footer-group, table-row, table-cell, table-caption, inline-block </td><br>        <td>block</td><br>      </tr><br>      <tr><br>        <td>其他</td><br>        <td>同设定值</td><br>      </tr><br>    </tbody><br></table>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://www.w3.org/html/ig/zh/wiki/CSS2/visuren" target="_blank" rel="external">http://www.w3.org/html/ig/zh/wiki/CSS2/visuren</a></p>
+<p><a href="http://www.w3help.org/zh-cn/kb/009/" target="_blank" rel="external">http://www.w3help.org/zh-cn/kb/009/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+        <div class="article-meta pull-left">
+          
+          
+        </div>
+        
+    </footer>
+  </div>
+</article>
+
+  
+
+
+
+    </main>
+
+    <footer id="colophon" class="site-footer" role="contentinfo"><p class="site-info">
+  Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+  Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+  </br>
+  
+  &copy; 2016 John Doe
+  
+</p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

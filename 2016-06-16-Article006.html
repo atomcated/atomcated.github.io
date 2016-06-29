@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>javascript的数据类型 | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="javascript的数据类型在不同的地方会有不同的分类，这里介绍最为主流的。
+即分为原始类型（primitive type  基本类型）和 引用类型（object type 对象类型）。
+原始类型ECMAScript 有 5 种原始类型（primitive type），即 Undefined、Nu">
+  
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="javascript的数据类型"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div id="page" class="site">
+  <div id="primary" class="content-area">
+
+    <header id="header" class="inner"><div class="site-branding">
+  <h1 class="site-title">
+    <a href="/">Hexo</a>
+  </h1>
+  <p class="site-description"></p>
+</div>
+<nav id="site-navigation" class="main-navigation" role="navigation">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+
+    <main id="main" class="site-main posts-loop" role="main">
+      <article class="post article">
+
+  
+  
+    <h3 class="article-title"><span>javascript的数据类型</span></h3>
+  
+
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016-06-16-Article006.html" rel="bookmark">
+        <time class="entry-date published" datetime="2016-06-15T18:18:06.000Z">
+          2016-06-16
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>javascript的数据类型在不同的地方会有不同的分类，这里介绍最为主流的。</p>
+<p>即分为原始类型（primitive type  基本类型）和 引用类型（object type 对象类型）。</p>
+<h3 id="原始类型"><a href="#原始类型" class="headerlink" title="原始类型"></a>原始类型</h3><p>ECMAScript 有 5 种原始类型（primitive type），即 Undefined、Null、Boolean、Number 和 String。</p>
+<p>Undefined 类型：</p>
+<pre><code>一个没有被赋值的变量会有个默认值 undefined
+</code></pre><p>Null 类型：</p>
+<pre><code>Null 类型只有一个值： null
+</code></pre><p>Boolean 类型：</p>
+<pre><code>布尔表示一个逻辑实体，可以有两个值：true 和 false。
+</code></pre><p>Number 类型：</p>
+<pre><code>JavaScript 中只有一种数字类型：基于 IEEE 754 标准的双精度 64 位二进制格式的值（-(253 -1) 到 253 -1）。
+</code></pre><p>String 类型：</p>
+<pre><code>JavaScript的字符串类型用于表示文本数据。它是一组16位的无符号整数值的“元素”。 JavaScript 字符串是不可更改的。
+</code></pre><p>注1：Symbol ( 在 ECMAScript 6 中新添加的类型)<br>注2：原始类型都是<strong>不可变的</strong>（值本身无法被改变）。存储在栈（stack）中的简单数据段，也就是说，它们的值直接存储在变量访问的位置。例如，JavaScript 中对字符串的操作一定返回了一个新字符串，原始字符串并没有被改变。</p>
+<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><p>注1：存储在堆（heap）中的对象，也就是说，存储在变量处的值是一个指针（point），指向存储对象的内存处。</p>
+<p>JavaScript有三种方法，可以确定一个值到底是什么类型。</p>
+<pre><code>1. typeof
+2. instanceof
+3. Object.prototype.toString
+</code></pre><p>#####typeof操作符：</p>
+<pre><code>typeof undefined     //  &quot;undefined&quot;
+typeof null          //  &quot;object&quot;    这是历史原因遗留错误，但从技术上来说，它仍然是原始值。
+typeof ture/false    //  &quot;boolean&quot;
+typeof 123           //  &quot;number&quot;
+typeof &quot;&quot;            //  &quot;string&quot;
+typeof {}            //  &quot;object&quot;
+typeof function(){}  //  &quot;function&quot;
+</code></pre><p>为了检测一个对象的类型，强烈推荐使用 Object.prototype.toString 方法； 因为这是唯一一个可依赖的方式。<br>在实际应用中，typeof就是检测一个元素是否为undefined。做一些原始类型的判断。</p>
+<p>#####instanceof 操作符：</p>
+<p>instanceof 操作符用来比较两个操作数的构造函数。只有在比较自定义的对象时才有意义。 如果用来比较内置类型，将会和 typeof 操作符 一样用处不大。</p>
+<p>instanceof 操作符应该仅仅用来比较来自同一个 JavaScript 上下文的自定义对象。 正如 typeof 操作符一样，任何其它的用法都应该是避免的。</p>
+<p>#####类型转换：</p>
+<p>转换为字符串</p>
+<pre><code>&apos;&apos; + 10 === &apos;10&apos;; // true
+</code></pre><p>转换为数字</p>
+<pre><code>+&apos;010&apos; === 10
+Number(&apos;010&apos;) === 10
+parseInt(&apos;010&apos;, 10) === 10  // 用来转换为整数
+
++&apos;010.2&apos; === 10.2
+Number(&apos;010.2&apos;) === 10.2
+parseInt(&apos;010.2&apos;, 10) === 10
+</code></pre><p>转换为布尔型</p>
+<pre><code>!!&apos;foo&apos;;   // true
+!!&apos;&apos;;      // false
+!!&apos;0&apos;;     // true
+!!&apos;1&apos;;     // true
+!!&apos;-1&apos;     // true
+!!{};      // true
+!!true;    // true
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+        <div class="article-meta pull-left">
+          
+          
+        </div>
+        
+    </footer>
+  </div>
+</article>
+
+  
+
+
+
+    </main>
+
+    <footer id="colophon" class="site-footer" role="contentinfo"><p class="site-info">
+  Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+  Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+  </br>
+  
+  &copy; 2016 John Doe
+  
+</p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

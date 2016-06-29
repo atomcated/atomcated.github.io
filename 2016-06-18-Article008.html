@@ -1,0 +1,363 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>前端性能指南 | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="要怎样做出速度很快的网站，给用户一个优秀的体验呢？
+HTML1. 避免 内联式/嵌入式 代码你可以通过三种方式在HTML页面中引入CSS或Javascript代码:
+
+内联式: 在HTML标签的style属性中定义样式，在onclick这样的属性中定义Javascript代码;
+嵌入式: 在页面中使">
+  
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="前端性能指南"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div id="page" class="site">
+  <div id="primary" class="content-area">
+
+    <header id="header" class="inner"><div class="site-branding">
+  <h1 class="site-title">
+    <a href="/">Hexo</a>
+  </h1>
+  <p class="site-description"></p>
+</div>
+<nav id="site-navigation" class="main-navigation" role="navigation">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+
+    <main id="main" class="site-main posts-loop" role="main">
+      <article class="post article">
+
+  
+  
+    <h3 class="article-title"><span>前端性能指南</span></h3>
+  
+
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016-06-18-Article008.html" rel="bookmark">
+        <time class="entry-date published" datetime="2016-06-17T18:18:06.000Z">
+          2016-06-18
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>要怎样做出速度很快的网站，给用户一个优秀的体验呢？</p>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><h3 id="1-避免-内联式-嵌入式-代码"><a href="#1-避免-内联式-嵌入式-代码" class="headerlink" title="1. 避免 内联式/嵌入式 代码"></a>1. 避免 内联式/嵌入式 代码</h3><p>你可以通过三种方式在HTML页面中引入CSS或Javascript代码:</p>
+<ol>
+<li><strong>内联式</strong>: 在HTML标签的<code>style</code>属性中定义样式，在<code>onclick</code>这样的属性中定义Javascript代码;</li>
+<li><strong>嵌入式</strong>: 在页面中使用<code>&lt;style&gt;</code>标签定义样式，使用<code>&lt;script&gt;</code>标签定义Javascript代码;</li>
+<li><strong>引用外部文件</strong>: 在<code>&lt;style&gt;</code>标签中定义<code>href</code>属性引用CSS文件，在<code>&lt;script&gt;</code>标签中定义<code>src</code>属性引入Javascript文件.</li>
+</ol>
+<p>尽管前两种方式减少了HTTP请求数，可是实际上却增加了HTML文档的体积。不过，当你的页面中的CSS或者Javascript代码足够少，反而是开启一个HTTP请求的花费要更大时，采用这两种方式却是最有用的。因此，你需要测试评估这种方式是否真的提升了速度。同时也要考虑到你的页面的目标和它的受众：如果你期望人们只会访问它一次，例如对一些临时活动来说，你决不会期望有回访客出现，那么使用内联式/嵌入式代码能够帮助减少HTTP请求数。</p>
+<blockquote>
+<p>尽量避免在你的HTML中手工编写CSS/JS（首选的方法是通过工具实现这个过程的自动化）。</p>
+</blockquote>
+<p>第三种方式不仅使你的代码更有序，而且使得浏览器能够缓存它。这种方式在大多数的情况下都是首选，特别是一些大文件和多页面的情况。</p>
+<h3 id="2-样式在上，脚本在下"><a href="#2-样式在上，脚本在下" class="headerlink" title="2. 样式在上，脚本在下"></a>2. 样式在上，脚本在下</h3><p>当我们把样式放在<code>&lt;head&gt;</code>标签中时，浏览器在渲染页面时就能尽早的知道每个标签的样式，我们的用户就会感觉这个页面加载的很快。</p>
+<pre><code>&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Browser Diet&lt;/title&gt;
+
+  &lt;!-- CSS --&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; media=&quot;all&quot;&gt;
+&lt;/head&gt;
+</code></pre><p>但是如果我们将样式放在页面的结尾，浏览器在渲染页面时就无法知道每个标签的样式，直到CSS被下载执行后。</p>
+<p>另一方面，对于Javascript来说，因为它在执行过程中会阻塞页面的渲染，所以我们要把它放在页面的结尾。</p>
+<pre><code>&lt;body&gt;
+  &lt;p&gt;Lorem ipsum dolor sit amet.&lt;/p&gt;
+
+  &lt;!-- JS --&gt;
+  &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+</code></pre><h3 id="3-尝试async"><a href="#3-尝试async" class="headerlink" title="3. 尝试async"></a>3. 尝试async</h3><p>为了解释这个属性对于性能优化是多么有用，我们应该先明白，当不使用它时会发生什么。</p>
+<pre><code>&lt;script src=&quot;example.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>使用上面这种方式时，页面会在这个脚本文件被完全下载、解析、执行完后才去渲染之后的HTML，在这之前会一直处于阻塞状态。这就意味着会增加你的页面的加载时间。有时这种行为是我们希望的，而大多数时候则不想要。</p>
+<pre><code>&lt;script async src=&quot;example.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>使用上面这种方式时，脚本的加载是异步的，不会影响到这之后的页面解析。脚本会在下载完之后立即执行。需要注意的是，如果有多个使用这种方式异步加载的脚本，他们是没有特定的执行顺序的。(defer区别）</p>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="4-压缩你的样式表"><a href="#4-压缩你的样式表" class="headerlink" title="4. 压缩你的样式表"></a>4. 压缩你的样式表</h3><p>为了保持代码的可读性，最好的方法是在代码中添加注释和使用缩进：</p>
+<pre><code>.center {
+  width: 960px;
+  margin: 0 auto;
+}
+
+/* --- Structure --- */
+
+.intro {
+  margin: 100px;
+  position: relative;
+}
+</code></pre><p>但是对于浏览器来说，这些都是不重要的。正因为如此，通过自动化工具压缩你的CSS是非常有用的。</p>
+<pre><code>.center{width:960px;margin:0 auto}.intro{margin:100px;position:relative}
+</code></pre><p>这样做能够减小文件的大小，从而得到更快的下载、解析和执行。</p>
+<p>对于使用预处理器例如 Sass, Less, and Stylus, 你可以通过配置缩小编译输出的CSS代码。</p>
+<h3 id="5-合并多个css文件"><a href="#5-合并多个css文件" class="headerlink" title="5. 合并多个css文件"></a>5. 合并多个css文件</h3><p>对于样式的组织和维护，另一个好方法是将他们模块化。</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;structure.css&quot; media=&quot;all&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;banner.css&quot; media=&quot;all&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;layout.css&quot; media=&quot;all&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;component.css&quot; media=&quot;all&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;plugin.css&quot; media=&quot;all&quot;&gt;
+</code></pre><p>然而，这样每个文件就是一个HTTP请求（我们都知道，浏览器的并行下载数是有限的）。</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;main.css&quot; media=&quot;all&quot;&gt;
+</code></pre><p>所以，合并你的CSS文件。文件数量的减少就会带来请求数量的减少和更快的页面加载速度。</p>
+<h3 id="6-使用-lt-link-gt-标签而不是-import"><a href="#6-使用-lt-link-gt-标签而不是-import" class="headerlink" title="6. 使用 &lt;link&gt; 标签而不是 @import"></a>6. 使用 <code>&lt;link&gt;</code> 标签而不是 @import</h3><p>有两种方式可以引入一个外部的样式表：通过 <code>&lt;link&gt;</code>标签：</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+</code></pre><p>或者通过 <code>@import</code> 指令 (使用在一个外部样式表中或者页面内嵌的 <code>&lt;style&gt;</code> 标签中):</p>
+<pre><code>@import url(&apos;style.css&apos;);
+</code></pre><p>当你在一个外部样式表中使用第二种方式时，浏览器无法通过并行下载的方式下载这个资源，这样就会导致其他资源的下载被阻塞。</p>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><h3 id="7-异步加载第三方内容"><a href="#7-异步加载第三方内容" class="headerlink" title="7. 异步加载第三方内容"></a>7. 异步加载第三方内容</h3><p>嵌入一个Youtube视频,问题在于，不管是用户端的还是服务器端的连接，都无法保证这些代码是正常有效的工作的。这些服务有可能临时down掉或者是被用户或者其公司的防火墙阻止。</p>
+<p>为了避免这些在页面加载时成为问题，或者更严重的是，阻塞了全部页面的加载，总是应该异步加载这些代码 (或者使用 Friendly iFrames).</p>
+<pre><code>var script = document.createElement(&apos;script&apos;),
+scripts = document.getElementsByTagName(&apos;script&apos;)[0];
+script.async = true;
+script.src = url;
+scripts.parentNode.insertBefore(script, scripts);
+</code></pre><p>当你在一个外部样式表中使用第二种方式时，浏览器无法通过并行下载的方式下载这个资源，这样就会导致其他资源的下载被阻塞。</p>
+<h3 id="8-缓存数组长度"><a href="#8-缓存数组长度" class="headerlink" title="8. 缓存数组长度"></a>8. 缓存数组长度</h3><p>循环无疑是和Javascript性能非常相关的一部分。试着优化循环的逻辑，从而让每次循环更加的高效。</p>
+<p>要做到这一点，方法之一是存储数组的长度，这样的话，在每次循环时都不用重新计算。</p>
+<pre><code>var arr = new Array(1000),
+    len, i;
+
+for (i = 0; i &lt; arr.length; i++) {
+  // Bad - size needs to be recalculated 1000 times
+}
+
+for (i = 0, len = arr.length; i &lt; len; i++) {
+  // Good - size is calculated only 1 time and then stored
+}
+</code></pre><p>虽然现代浏览器引擎会自动优化这个过程，但是不要忘记还有旧的浏览器</p>
+<p>在迭代<code>document.getElementsByTagName(&#39;a&#39;)</code>等类似方法生成的HTML节点数组（NodeList）时，缓存数组长度尤为关键。这些集合通常被认为是“活的”，也就是说，当他们所对应的元素发生变化时，他们会被自动更新。</p>
+<pre><code>var links = document.getElementsByTagName(&apos;a&apos;),
+    len, i;
+
+for (i = 0; i &lt; links.length; i++) {
+  // Bad - each iteration the list of links will be recalculated to see if there was a change
+}
+
+for (i = 0, len = links.length; i &lt; len; i++) {
+  // Good - the list size is first obtained and stored, then compared each iteration
+}
+
+// Terrible: infinite loop example
+for (i = 0; i &lt; links.length; i++) {
+  document.body.appendChild(document.createElement(&apos;a&apos;));
+  // each iteration the list of links increases, never satisfying the termination condition of the loop
+  // this would not happen if the size of the list was stored and used as a condition
+}
+</code></pre><h3 id="9-避免使用document-write"><a href="#9-避免使用document-write" class="headerlink" title="9. 避免使用document.write"></a>9. 避免使用document.write</h3><p>这个（坏）方法已经被开发者抛弃了很多年, 但是在某些情况下仍然是需要的，例如在一些Javascript文件的同步回退中。</p>
+<p>举例来说，如果发现Google的CDN没有响应，HTML5 Boilerplate则会通过这个方法来调用本地的jQuery库。</p>
+<pre><code>&lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;window.jQuery || document.write(&apos;&lt;script src=&quot;js/vendor/jquery-1.9.0.min.js&quot;&gt;&lt;\/script&gt;&apos;)&lt;/script&gt;
+</code></pre><blockquote>
+<p>注意: 如果在<code>window.onload</code>事件中或之后执行<code>document.write</code>方法，会将当前页面替换掉。</p>
+</blockquote>
+<pre><code>&lt;span&gt;foo&lt;/span&gt;
+&lt;script&gt;
+  window.onload = function() {
+    document.write(&apos;&lt;span&gt;bar&lt;/span&gt;&apos;);
+  };
+&lt;/script&gt;
+</code></pre><p>这段代码执行后的结果是页面中只会呈现出bar字符，而不是期望的出现foobar。在<code>window.onload</code>事件之后执行也是同样的结果。</p>
+<pre><code>&lt;span&gt;foo&lt;/span&gt;
+&lt;script&gt;
+  setTimeout(function() {
+    document.write(&apos;&lt;span&gt;bar&lt;/span&gt;&apos;);
+  }, 1000);
+  window.onload = function() {
+    // ...
+  };
+&lt;/script&gt;
+</code></pre><p>这段代码执行的结果和上一段代码的结果相同。</p>
+<h3 id="10-最小化重排-回流-和重绘"><a href="#10-最小化重排-回流-和重绘" class="headerlink" title="10. 最小化重排(回流)和重绘"></a>10. 最小化重排(回流)和重绘</h3><p>当有任何属性或元素发生改变时，都会引起DOM元素的重排和重绘。</p>
+<p>当一个元素的布局不变，外观发生改变时，就会引起重绘。Nicole Sullivan描述这个就像是样式的改变，例如改变<code>background-color</code>。</p>
+<p>重排的代价是最高的，当改变一个页面的布局时就会发生重排，例如改变一个元素的宽。</p>
+<p>毫无疑问，应当避免过多的重绘和回流，所以，对于下面的代码：</p>
+<pre><code>var div = document.getElementById(&quot;to-measure&quot;),
+    lis = document.getElementsByTagName(&apos;li&apos;),
+    i, len;
+
+for (i = 0, len = lis.length; i &lt; len; i++) {
+  lis[i].style.width = div.offsetWidth + &apos;px&apos;;
+}
+</code></pre><p>应当变为：</p>
+<pre><code>var div = document.getElementById(&quot;to-measure&quot;),
+    lis = document.getElementsByTagName(&apos;li&apos;),
+    widthToSet = div.offsetWidth,
+    i, len;
+
+for (i = 0, len = lis.length; i &lt; len; i++) {
+  lis[i].style.width = widthToSet + &apos;px&apos;;
+}
+</code></pre><p>当你设置<code>style.width</code>时，浏览器需要重新计算布局。通常，浏览器暂时是不需要知道改变了元素的样式的，直到它需要更新屏幕时，正因为如此，改变多个元素的样式只会产生一次重排。然而，在第一个例子中，我们每次请求<code>offsetWidth</code>时，都会使浏览器重新计算布局。</p>
+<p>如果需要得到页面中的布局数据，那么请参照第二个例子，将这些操作放在任何会改变布局的设置前。</p>
+<h3 id="11-避免不必要的dom操作"><a href="#11-避免不必要的dom操作" class="headerlink" title="11. 避免不必要的dom操作"></a>11. 避免不必要的dom操作</h3><p>浏览器遍历DOM元素的代价是昂贵的。虽然Javascript引擎变得越来越强大，越来越快速，但是还是应该最大化的优化查询DOM树的操作。</p>
+<pre><code>// really bad!
+for (var i = 0; i &lt; 100; i++) {
+  document.getElementById(&quot;myList&quot;).innerHTML += &quot;&lt;span&gt;&quot; + i + &quot;&lt;/span&gt;&quot;;
+}
+
+// much better :)
+var myList = &quot;&quot;;
+
+for (var i = 0; i &lt; 100; i++) {
+  myList += &quot;&lt;span&gt;&quot; + i + &quot;&lt;/span&gt;&quot;;
+}
+
+document.getElementById(&quot;myList&quot;).innerHTML = myList;
+
+// much much better :)
+var myListHTML = document.getElementById(&quot;myList&quot;).innerHTML;
+
+for (var i = 0; i &lt; 100; i++) {
+  myListHTML += &quot;&lt;span&gt;&quot; + i + &quot;&lt;/span&gt;&quot;;
+}
+</code></pre><h3 id="12-压缩你的脚本"><a href="#12-压缩你的脚本" class="headerlink" title="12. 压缩你的脚本"></a>12. 压缩你的脚本</h3><p>和CSS一样，为了保持代码的可读性，最好的方法是在代码中添加注释和使用缩进：</p>
+<pre><code>BrowserDiet.app = function() {
+
+  var foo = true;
+
+  return {
+    bar: function() {
+      // do something
+    }
+  };
+
+};
+</code></pre><p>但是对于浏览器来说，这些都是不重要的。正因为如此，请记住用自动化工具压缩你的Javascript代码。</p>
+<pre><code>BrowserDiet.app=function(){var a=!0;return{bar:function(){}}}
+</code></pre><p>这样做能够减小文件的大小，从而得到更快的下载、解析和执行。</p>
+<h3 id="13-将多个js文件合并"><a href="#13-将多个js文件合并" class="headerlink" title="13. 将多个js文件合并"></a>13. 将多个js文件合并</h3><p>对于脚本的组织和维护，另一个好方法是将他们模块化。</p>
+<pre><code>&lt;script src=&quot;navbar.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;component.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;page.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;framework.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;plugin.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>然而，这样每个文件就是一个HTTP请求（我们都知道，浏览器的并行下载数是有限的）。</p>
+<pre><code>&lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>所以，合并你的JS文件。文件数量的减少就会带来请求数量的减少和更快的页面加载速度。</p>
+<p>想要两全其美？通过构建工具自动化这个过程吧。</p>
+<h2 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h2><h3 id="14-总是使用最新版本jquery"><a href="#14-总是使用最新版本jquery" class="headerlink" title="14. 总是使用最新版本jquery"></a>14. 总是使用最新版本jquery</h3><p>jQuery的核心团队通过改进代码的可读性、加入新的函数和优化现有的算法，不停地改进着这个库。</p>
+<p>New is always better</p>
+<h3 id="15-使用for，而不是each"><a href="#15-使用for，而不是each" class="headerlink" title="15. 使用for，而不是each"></a>15. 使用for，而不是each</h3><p>原生Javascript中的函数执行几乎总是要比jQuery快一些。正因为如此，请使用Javascript的<code>for</code>循环，不要使用<code>jQuery.each</code>方法。</p>
+<p>但是请注意，虽然<code>for in</code>是原生的，可是在许多情况下，它的性能要比<code>jQuery.each</code>差一些。</p>
+<p>在<code>for</code>循环迭代时，请记得缓存集合的长度。</p>
+<pre><code>for ( var i = 0, len = a.length; i &lt; len; i++ ) {
+    e = a[i];
+}
+</code></pre><h3 id="16-不要使用jquery…"><a href="#16-不要使用jquery…" class="headerlink" title="16. 不要使用jquery…"></a>16. 不要使用jquery…</h3><p>…除非它是必需的。 :)</p>
+<p>有时JavaScript要比jQuery简单一些。</p>
+<p>使用<code>attr()</code>方法来查询ID：</p>
+<pre><code>$(&apos;a&apos;).on(&apos;click&apos;, function() {
+  console.log( $(this).attr(&apos;id&apos;) );
+});
+</code></pre><p>如果你能通过<code>this</code>的本身属性获得，还需要上面的方法吗？</p>
+<pre><code>$(&apos;a&apos;).on(&apos;click&apos;, function() {
+  console.log( this.id );
+});
+</code></pre><p>而且这样还更快。</p>
+<p>##Images</p>
+<h3 id="17-使用css-sprites"><a href="#17-使用css-sprites" class="headerlink" title="17. 使用css sprites"></a>17. 使用css sprites</h3><p>这个技术就是将各种图片整合到一个文件中去。然后通过CSS去定位它们。</p>
+<pre><code>.icon-foo {
+  background-image: url(&apos;mySprite.png&apos;);
+  background-position: -10px -10px;
+}
+
+.icon-bar {
+  background-image: url(&apos;mySprite.png&apos;);
+  background-position: -5px -5px;
+}
+</code></pre><p>这么做的结果就是，减少了HTTP请求数，避免延迟页面上的其他资源。</p>
+<p>在使用sprite时，应当避免在每个图片之间的空隙过大。这个虽然不会影响到文件的大小，但是会影响到内存的消耗。</p>
+<h3 id="18-data-uri"><a href="#18-data-uri" class="headerlink" title="18. data uri"></a>18. data uri</h3><p>这种技术是CSS Sprites的替代方法。</p>
+<p>Data-URI是指使用图片的数据代替通常使用的图片URI，在下面的例子中，我们就使用它减少了HTTP请求数。</p>
+<p>使用前:</p>
+<pre><code>.icon-foo {
+  background-image: url(&apos;foo.png&apos;);
+}
+</code></pre><p>使用后:</p>
+<pre><code>.icon-foo {
+  background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII%3D&apos;);
+}
+</code></pre><p>所有的现代浏览器和IE8及以上版本的IE都支持这个方法，图片需要使用base64方法编码。</p>
+<p>这种技术和CSS Sprites技术都是可以使用构建工具得到的。使用构建工具的好处是不用手工去进行图片的拼合替换，在开发时使用单独的文件就可以。</p>
+<p>然而坏处是，随着你的HTML/CSS文件的增大增多，你必须考虑你可能会有一个非常大的图片。如果你在HTTP请求中没有使用gzip技术压缩你的HTML/CSS，那么不推荐使用这种方法，因为减少HTTP请求数得到的大文件对于速度来说可能带来相反的结果。</p>
+<h3 id="19-不要在-标签中调整图像"><a href="#19-不要在-标签中调整图像" class="headerlink" title="19. 不要在  标签中调整图像"></a>19. 不要在 <img> 标签中调整图像</h3><p>总是在<code>img</code>标签中设置<code>width</code>和<code>height</code>属性。这样可以防止渲染过程中的重绘和重排。</p>
+<pre><code>&lt;img width=&quot;100&quot; height=&quot;100&quot; src=&quot;logo.jpg&quot; alt=&quot;Logo&quot;&gt;
+</code></pre><p>知道这个之后，一个开发者将一个700x700px的图像设置为50x50px来显示。</p>
+<p>但是这个开发者不知道的是，大量的没有用的数据也发送到了客户端。</p>
+<p>所以请记住：你可以在标签中定义一个图片的宽高，但不意味着你应该通过这么做来(等比)缩放大图。</p>
+<h3 id="20-优化你的图片"><a href="#20-优化你的图片" class="headerlink" title="20. 优化你的图片"></a>20. 优化你的图片</h3><p>一种方式是无损压缩</p>
+<p>另一种优化图片的方式是，以图片质量为代价进行压缩。我们称之为有损压缩。举例来说，当你到处一个JPEG图片时，你可以选择导出的图片质量（从0到100）。考虑到性能，总是选择可接受范围内的最低值。在PNG图片中，另一个常见的有损技术是减少颜色数量，或者将PNG-24格式转换为PNG-8格式。</p>
+<p>为了提升用户的体验，你还应该将你的JPEG文件转换为渐进式的。现在大多数的浏览器都支持渐进式JPEG文件，并且这种格式的文件创建简单，没有明显的性能损失问题。</p>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><h3 id="21-诊断工具：你最好的朋友"><a href="#21-诊断工具：你最好的朋友" class="headerlink" title="21. 诊断工具：你最好的朋友"></a>21. 诊断工具：你最好的朋友</h3><p>YSlow和 PageSpeed等<br>都可以对你的网站的性能进行分析，并且给出分析报告，还可以对潜在的问题给出建议。</p>
+<h3 id="22-没有银弹"><a href="#22-没有银弹" class="headerlink" title="22. 没有银弹"></a>22. 没有银弹</h3><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a href="http://developer.yahoo.com/performance/rules.html/" target="_blank" rel="external">雅虎军规Yahoo! Best Practices</a> </p>
+<p><a href="https://developers.google.com/web/fundamentals/?hl=zh-cn" target="_blank" rel="external">developers.google.com</a> </p>
+<p><a href="http://taitems.github.io/Front-End-Development-Guidelines/" target="_blank" rel="external">FrontEnd Development Guidelines</a> </p>
+<p><a href="http://csswizardry.com/2013/01/front-end-performance-for-web-designers-and-front-end-developers/" target="_blank" rel="external">Front-end performance for web designers and front-end developers</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+        <div class="article-meta pull-left">
+          
+          
+        </div>
+        
+    </footer>
+  </div>
+</article>
+
+  
+
+
+
+    </main>
+
+    <footer id="colophon" class="site-footer" role="contentinfo"><p class="site-info">
+  Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+  Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+  </br>
+  
+  &copy; 2016 John Doe
+  
+</p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

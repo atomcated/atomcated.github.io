@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>DOM 小结 | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="DOM是在学习前端过程中经常见到的一个名词，也是前端工程师必须了解的一个重要技能分支，这里对DOM作一个学习总结。
+###什么是 DOM?
+DOM 是 Document Object Model（文档对象模型）的缩写。
+官方的定义是：
+
+“W3C 文档对象模型 （DOM） 是中立于平台和语言的接口，">
+  
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="DOM 小结"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div id="page" class="site">
+  <div id="primary" class="content-area">
+
+    <header id="header" class="inner"><div class="site-branding">
+  <h1 class="site-title">
+    <a href="/">Hexo</a>
+  </h1>
+  <p class="site-description"></p>
+</div>
+<nav id="site-navigation" class="main-navigation" role="navigation">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+
+    <main id="main" class="site-main posts-loop" role="main">
+      <article class="post article">
+
+  
+  
+    <h3 class="article-title"><span>DOM 小结</span></h3>
+  
+
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016-06-14-Article004.html" rel="bookmark">
+        <time class="entry-date published" datetime="2016-06-13T18:18:06.000Z">
+          2016-06-14
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>DOM是在学习前端过程中经常见到的一个名词，也是前端工程师必须了解的一个重要技能分支，这里对DOM作一个学习总结。</p>
+<p>###什么是 DOM?</p>
+<p>DOM 是 Document Object Model（文档对象模型）的缩写。</p>
+<p>官方的定义是：</p>
+<blockquote>
+<p>“W3C 文档对象模型 （DOM） 是中立于平台和语言的接口，它允许程序和脚本动态地访问和更新文档的内容、结构和样式。”</p>
+</blockquote>
+<p>W3C DOM 标准被分为 3 个不同的部分：</p>
+<ul>
+<li>核心 DOM - 针对任何结构化文档的标准模型</li>
+<li>XML DOM - 针对 XML 文档的标准模型</li>
+<li>HTML DOM - 针对 HTML 文档的标准模型</li>
+</ul>
+<p>前端重点关注的是HTML DOM，HTML DOM 定义了所有 HTML 元素的<strong>对象</strong>和<strong>属性</strong>，以及访问它们的<strong>方法</strong>。从本质上说，它将web 页面和脚本或编程语言连接起来了。</p>
+<p>换言之，HTML DOM 是关于如何<strong>获取、修改、添加或删除 HTML 元素的标准</strong>。（增删改查）</p>
+<p>尽管DOM 通常会使用 JavaScript 来访问， 但它并不是 js 的一部分，它也可以被其他语言使用。</p>
+<p>###DOM 节点 与 DOM 树</p>
+<p>根据 W3C 的 HTML DOM 标准，HTML 文档中的所有内容都是<strong>节点</strong>：</p>
+<ul>
+<li>整个文档是一个文档节点</li>
+<li>每个 HTML 元素是元素节点</li>
+<li>HTML 元素内的文本是文本节点</li>
+<li>每个 HTML 属性是属性节点</li>
+<li>注释是注释节点</li>
+</ul>
+<p>HTML DOM 将 HTML 文档视作树结构。这种结构被称为<strong>节点树</strong>：</p>
+<p><img src="/img/pic-004-1.gif" alt=""></p>
+<h3 id="编程接口"><a href="#编程接口" class="headerlink" title="编程接口"></a>编程接口</h3><p>可通过 JavaScript （以及其他编程语言）对 HTML DOM 进行访问。<strong>所有 HTML 元素被定义为对象，而编程接口则是对象方法和对象属性。</strong>方法是您能够执行的动作（比如添加或修改元素）。属性是您能够获取或设置的值（比如节点的名称或内容）。</p>
+<div><br><h2>一些 DOM 对象方法</h2><br><br><p>这里提供一些您将在本教程中学到的常用方法：</p><br><br><br><table class="table"><br><tbody><tr><br><th>方法</th><br><th>描述</th><br></tr><br><br><tr><br><td>getElementById()</td><br><td>返回带有指定 ID 的元素。</td><br></tr><br><br><tr><br><td>getElementsByTagName()</td><br><td>返回包含带有指定标签名称的所有元素的节点列表（集合/节点数组）。</td><br></tr><br><br><tr><br><td>getElementsByClassName()</td><br><td>返回包含带有指定类名的所有元素的节点列表。Internet Explorer 5,6,7,8 中无效。</td><br></tr><br><br><tr><br><td>appendChild()</td><br><td>把新的子节点添加到指定节点。</td><br></tr><br><br><tr><br><td>removeChild()</td><br><td>删除子节点。</td><br></tr><br><br><tr><br><td>replaceChild()</td><br><td>替换子节点。</td><br></tr><br><br><tr><br><td>insertBefore()</td><br><td>在指定的子节点前面插入新的子节点。</td><br></tr><br><br><tr><br><td>createAttribute()</td><br><td>创建属性节点。</td><br></tr><br><br><tr><br><td>createElement()</td><br><td>创建元素节点。</td><br></tr><br><br><tr><br><td>createTextNode()</td><br><td>创建文本节点。</td><br></tr><br><br><tr><br><td>getAttribute()</td><br><td>返回指定的属性值。</td><br></tr><br><br><tr><br><td>setAttribute()</td><br><td>把指定属性设置或修改为指定的值。</td><br></tr><br></tbody></table><br></div>
+
+<p>一些常用的 HTML DOM 属性：</p>
+<ul>
+<li>innerHTML - 节点（元素）的文本值</li>
+<li>parentNode - 节点（元素）的父节点</li>
+<li>childNodes - 节点（元素）的子节点</li>
+<li>attributes - 节点（元素）的属性节点</li>
+</ul>
+<p>tips：</p>
+<ol>
+<li>改变元素内容的最简单的方法是使用 <strong>innerHTML</strong> 属性</li>
+<li>访问 HTML 样式通过 <strong>style</strong> 属性</li>
+<li>如需向 HTML DOM 添加新元素，您首先必须创建(<strong>createElement</strong>)该元素，然后把它追加(<strong>appendChild或insertBefore</strong>)到已有的元素上</li>
+<li>如需删除 HTML 元素，您必须清楚该元素的父元素<strong>removeChild</strong>。写法：child.parentNode.removeChild(child)</li>
+<li>如需替换 HTML DOM 中的元素，请使用 replaceChild() 方法</li>
+<li>注册事件例子：document.getElementById(“myBtn”).onclick=function(){…};</li>
+<li>window.onload = function(){};</li>
+<li>访问表单内容value</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model</a></p>
+<p><a href="http://www.w3school.com.cn/htmldom/index.asp" target="_blank" rel="external">http://www.w3school.com.cn/htmldom/index.asp</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+        <div class="article-meta pull-left">
+          
+          
+        </div>
+        
+    </footer>
+  </div>
+</article>
+
+  
+
+
+
+    </main>
+
+    <footer id="colophon" class="site-footer" role="contentinfo"><p class="site-info">
+  Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+  Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+  </br>
+  
+  &copy; 2016 John Doe
+  
+</p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

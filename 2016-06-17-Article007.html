@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>jQuery源码与前端模块化 | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="任何库与框架设计的第一个要点就是决解命名空间与变量污染的问题。本文分析jQuery的解决方案，并引申前端模块化的问题
+1 jQuery解决方案jQuery代码比较长，把它的实现简化就是如下代码：
+(function(window, factory) {
+    factory(window);
+}(">
+  
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="jQuery源码与前端模块化"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div id="page" class="site">
+  <div id="primary" class="content-area">
+
+    <header id="header" class="inner"><div class="site-branding">
+  <h1 class="site-title">
+    <a href="/">Hexo</a>
+  </h1>
+  <p class="site-description"></p>
+</div>
+<nav id="site-navigation" class="main-navigation" role="navigation">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+
+    <main id="main" class="site-main posts-loop" role="main">
+      <article class="post article">
+
+  
+  
+    <h3 class="article-title"><span>jQuery源码与前端模块化</span></h3>
+  
+
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016-06-17-Article007.html" rel="bookmark">
+        <time class="entry-date published" datetime="2016-06-16T18:18:06.000Z">
+          2016-06-17
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>任何库与框架设计的第一个要点就是决解命名空间与变量污染的问题。本文分析jQuery的解决方案，并引申前端模块化的问题</p>
+<h3 id="1-jQuery解决方案"><a href="#1-jQuery解决方案" class="headerlink" title="1 jQuery解决方案"></a>1 jQuery解决方案</h3><p>jQuery代码比较长，把它的实现简化就是如下代码：</p>
+<pre><code>(function(window, factory) {
+    factory(window);
+}(this, function() {
+    return function() {
+       //jQuery的调用
+    }
+}))
+</code></pre><p>这种方法有点复杂,上面的代码中嵌套了2个函数，而且把一个函数作为参数传递到另一个函数中并且执行.原理是利用了JavaScript函数作用域的特性，采用立即调用表达式的方法，达到一种自执行的目的。</p>
+<p>下面这种是在很多库中的实现方法如下：</p>
+<pre><code>(function(window, undefined) {
+    var jQuery = function() {}
+    // ...
+    window.jQuery = window.$ = jQuery;
+})(window);
+</code></pre><p>上面代码中的两个点：</p>
+<ol>
+<li>window和undefined都是为了减少变量查找所经过的scope作用域</li>
+<li>为什么要传递undefined? 因为Javascript 中的 undefined 并不是作为关键字，因此可以允许用户对其赋值。</li>
+</ol>
+<p>这种写法也就是一种模块模式，通过立即执行函数的运用，不会污染全局作用域，解决了命名冲突的问题。</p>
+<h3 id="2-前端模块化"><a href="#2-前端模块化" class="headerlink" title="2 前端模块化"></a>2 前端模块化</h3><p>后端语言如Java，Python，都会import功能，方便管理不同的库。前端以前没有这样的功能（注：es6引入模块化），随着前端的繁荣，前端开发越来越复杂，管理这些前端文件和处理依赖也会是一个问题。</p>
+<p>这里介绍一下Sea.js和RequireJs,吐槽最近面试问这个的好多。</p>
+<p>相同：</p>
+<p>RequireJS 和 Sea.js 都是模块加载器</p>
+<p>不同：</p>
+<ol>
+<li>遵循的规范不同。RequireJS 遵循 AMD规范，Sea.js 遵循 CMD 规范。规范的不同，导致了两者 API 不同。Sea.js 更贴近 CommonJS Modules/1.1 和 Node Modules 规范。</li>
+<li>依赖不同。</li>
+</ol>
+<p>RequireJS推荐写法</p>
+<pre><code>define([&quot;./a&quot;, &quot;./b&quot;], function(a, b) {//依赖必须一开始就写好
+  a.doSomething();
+  b.doSomething();
+});
+</code></pre><p>RequireJS异步加载模块，依赖前置，提前执行（待定）。</p>
+<p>Seajs模块写法：</p>
+<pre><code>define(function(require, exports, module) {
+  var a = require(&quot;./a&quot;);
+  a.doSomething();
+  //省略..行
+  var b = require(&quot;./b&quot;);// 依赖可以就近书写
+  b.doSomething();
+});
+</code></pre><p>Seajs同步加载，依赖就近，延迟执行。</p>
+<p>这些异同不重要，关键是要养成模块化开发的习惯</p>
+<h3 id="3-总结"><a href="#3-总结" class="headerlink" title="3 总结"></a>3 总结</h3><ol>
+<li>全局变量是魔鬼，尽量少。</li>
+<li>培养模块化开发的习惯。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+        <div class="article-meta pull-left">
+          
+          
+        </div>
+        
+    </footer>
+  </div>
+</article>
+
+  
+
+
+
+    </main>
+
+    <footer id="colophon" class="site-footer" role="contentinfo"><p class="site-info">
+  Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+  Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+  </br>
+  
+  &copy; 2016 John Doe
+  
+</p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
